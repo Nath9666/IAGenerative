@@ -8,17 +8,15 @@ import matplotlib.pyplot as plt
 x_train = x_train.astype("float32") / 255.0 
 x_train = np.expand_dims(x_train, -1) 
  
-latent_dim = 100 
+latent_dim = 100
  
 # CNN Generator 
 def build_generator(): 
     model = tf.keras.Sequential([ 
         layers.Dense(7 * 7 * 256, input_dim=latent_dim), 
         layers.Reshape((7, 7, 256)), 
-        layers.Conv2DTranspose(128, kernel_size=4, strides=2, padding="same", 
-activation="relu"), 
-        layers.Conv2DTranspose(64, kernel_size=4, strides=2, padding="same", 
-activation="relu"), 
+        layers.Conv2DTranspose(128, kernel_size=4, strides=2, padding="same", activation="relu"), 
+        layers.Conv2DTranspose(64, kernel_size=4, strides=2, padding="same", activation="relu"), 
         layers.Conv2DTranspose(1, kernel_size=7, activation="tanh", padding="same") 
     ]) 
     return model 
@@ -26,8 +24,7 @@ activation="relu"),
 # CNN Discriminator 
 def build_discriminator(): 
     model = tf.keras.Sequential([ 
-        layers.Conv2D(64, kernel_size=4, strides=2, padding="same", input_shape=(28, 28, 
-1)), 
+        layers.Conv2D(64, kernel_size=4, strides=2, padding="same", input_shape=(28, 28, 1)), 
         layers.LeakyReLU(alpha=0.2), 
         layers.Conv2D(128, kernel_size=4, strides=2, padding="same"), 
         layers.LeakyReLU(alpha=0.2), 
@@ -69,7 +66,7 @@ def train_gan(generator, discriminator, gan, epochs, batch_size=128):
          
     print(f"Epoch {epoch + 1}/{epochs}, D Loss: {d_loss_real[0] + d_loss_fake[0]}, G Loss: {g_loss}") 
  
-train_gan(generator, discriminator, gan, epochs=50) 
+train_gan(generator, discriminator, gan, epochs=10) 
  
 # Generate and visualize images 
 def generate_images(generator, n_images): 
