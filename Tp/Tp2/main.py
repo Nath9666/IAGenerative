@@ -15,9 +15,11 @@ def build_generator():
     model = tf.keras.Sequential([ 
         layers.Dense(7 * 7 * 256, input_dim=latent_dim), 
         layers.Reshape((7, 7, 256)), 
-        layers.Conv2DTranspose(128, kernel_size=4, strides=2, padding="same", activation="relu"), 
-        layers.Conv2DTranspose(64, kernel_size=4, strides=2, padding="same", activation="relu"), 
-        layers.Conv2DTranspose(1, kernel_size=7, activation="tanh", padding="same") 
+        layers.Conv2DTranspose(128, kernel_size=4, strides=2, padding="same"), 
+        layers.LeakyReLU(alpha=0.2), 
+        layers.Conv2DTranspose(64, kernel_size=4, strides=2, padding="same"), 
+        layers.LeakyReLU(alpha=0.2), 
+        layers.Conv2DTranspose(1, kernel_size=7, activation="sigmoid", padding="same") 
     ]) 
     return model 
  
@@ -76,6 +78,7 @@ def generate_images(generator, n_images):
     for i, img in enumerate(generated_images): 
         axes[i].imshow(img.squeeze(), cmap="gray") 
         axes[i].axis("off") 
-    plt.show() 
+    plt.show()
+    plt.savefig('generated_images.png') 
  
 generate_images(generator, 10)
