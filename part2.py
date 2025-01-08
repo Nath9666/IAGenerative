@@ -3,6 +3,15 @@ from tensorflow.keras import layers
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Limiter l'utilisation de la mémoire GPU par TensorFlow
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
+
 # Load MNIST dataset
 (x_train, y_train), (_, _) = tf.keras.datasets.mnist.load_data()
 x_train = x_train.astype("float32") / 255.0
@@ -61,7 +70,7 @@ cgan = tf.keras.Model([noise, label], validity)
 cgan.compile(optimizer=tf.keras.optimizers.Adam(0.0002), loss="binary_crossentropy")
 
 # Training the cGAN
-def train_cgan(generator, discriminator, cgan, epochs, batch_size=128):
+def train_cgan(generator, discriminator, cgan, epochs, batch_size=64):
     for epoch in range(epochs):
         for _ in range(batch_size):
             # Train discriminator
@@ -83,7 +92,7 @@ def train_cgan(generator, discriminator, cgan, epochs, batch_size=128):
         
         print(f"Epoch {epoch + 1}/{epochs}, D Loss: {d_loss_real[0] + d_loss_fake[0]}, G Loss: {g_loss}")
 
-train_cgan(generator, discriminator, cgan, epochs=10)
+train_cgan(generator, discriminator, cgan, epochs=50)
 
 # Generate and visualize images
 def generate_images(generator, n_images):
