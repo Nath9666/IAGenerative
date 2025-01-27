@@ -14,7 +14,11 @@ L'attention permet au modèle de pondérer l'importance de chaque mot de l'entr�
 
 #### Attention multi-têtes
 
-L'attention multi-têtes consiste à appliquer plusieurs mécanismes d'attention en parallèle, chacun avec des poids différents. Les résultats sont ensuite combinés pour produire la sortie finale. Cela permet au modèle de capturer différentes relations entre les mots.
+L'attention multi-têtes consiste à appliquer plusieurs mécanismes d'attention en parallèle, chacun avec des poids différents. Les résultats sont ensuite combinés pour produire la sortie finale. Cela permet au modèle de capturer différentes relations entre les mots. En utilisant plusieurs têtes, on s'approche d'une représentation plus riche et plus expressive des données en bref on s'approche de la meme difinition (l'espérance).
+
+#### Fit Forward
+
+Le feed-forward est une couche de réseau de neurones qui applique une transformation linéaire suivie d'une fonction d'activation non linéaire. Cette couche est utilisée pour introduire de la non-linéarité dans le modèle et permettre l'apprentissage de fonctions plus complexes.
 
 ##### Calcul de l'attention
 
