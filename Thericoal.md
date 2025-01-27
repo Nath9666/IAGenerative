@@ -39,6 +39,17 @@ où :
 ( V ) est le vecteur de valeur.
 ( d_k ) est la dimension des vecteurs de clé.
 
+##### Exemple
+
+une projection c'est le passage d'un dimension à une autre, la plupart du temps c'est d'une dimension plus grande à une dimension plus petite.
+
+une embeding c'est une projection mais qui evite le probleme de celle-ci qui est la perte d'information.
+Donc les elements sont projeter en restant différents.
+
+Donc pour le mot "chat" que l'on ne connait pas. On va calculer la similarité entre le mot "chat" et les mots du dictionnaire. On va donc calculer le produit scalaire entre le mot "chat" et les mots du dictionnaire.
+
+dans ce cas la querry est le mot "chat" et les keys sont les mots du dictionnaire ansi que leur valeurs dans l'espace de projection.
+
 ## Architecture
 
 L'architecture d'un transformeur est composée de deux parties principales :
