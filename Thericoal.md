@@ -62,6 +62,25 @@ L'architecture d'un transformeur est composée de deux parties principales :
 **Le décodeur** : Il utilise cette représentation pour générer la sortie.
 Chaque partie est composée de plusieurs couches de blocs d'attention et de couches feed-forward.
 
+# BERT (Bidirectional Encoder Representations from Transformers)
+
+Il s'agit d'un modèle de traitement du langage naturel (NLP) qui permet de comprendre le contexte des mots dans une phrase ainsi que le sens que ce mot a avec les mots du reste de la phrase. Il utilise une architecture type transformeur et est bidirectionnel ie au lieu de parcours la phrase de gauche a droite il va egalement la parcourir de droite a gauche pour mieux saisir le sens de la phrase. 
+
+Il s'entraine sur 2 taches : MLM (Masked Language Modeling) et NSP (Next Sentence Prediction). Le premier cache une partie des mots de la phrase, qu'il remplace par un token [MASK] et le modèle doit deviner le mot. La deuxieme tache permet de mettre en lien des phrases entre elles et voir si le sens de la phrase qui suit permet de donner un sens different a celle actuellement traite ("Je vais au magasin. Je vais acheter des fruits", il peut alors comprendre que le magasin en question est probablement un supermarché). (si vous voulez)
+
+# Vision Transformer (ViT) for images
+
+L'objectif est d'utiliser les NLP comme BERT pour faire de la reconnaissance d'image. Google Research les a introduit il y a quelques années et d'un point de vue performance, les Transformers rivalisent voir peuvent surpasser les reseaux de neurones convolutionnels classique tel que ResNet.En effet, l'un des problemes lie aux CNN est qu'ils ne sont pas tres efficaces dans la comprehension globale de l'image. Ils vont reussir a detecter les textures et les contours, trouver les formes mais pas comprendre les relations entre les regions d'une image. Les Transformers peuvent se servir de leur mecanisme d'attention pour trouver ces relations. 
+
+Fonctionnement d'un ViT
+1. Decoupage de l'image : on decoupe l'image en patch qu'on transforme en vecteur de caracteristiques pour stocker les informations du patch (comme ce qu'on fait avec une phrase, on prend mot par mot sauf qu'ici on fait patch par patch)
+2. Encodage de la position : La notion de position n'existe pas, on ajoute des vecteurs d'encodage positionnel pour permettre de differencier les patch et savoir quel patch est lie a quel autre patch
+3. Encodeur Transformer : On considere chaque patch comme un token. On lui applique un mecanisme d'attention multi-tete pour voir sa relation avec les autres patchs pour comprendre ses relations avec les patchs qui lui sont directement lies et son sens global dans l'image.
+4. Classification : On retourne les informations globales de l'image pour predire la classe de l'image
+
+
+L'un des problemes lies a cette methode est que les ViT ont besoin d'une quantite de donnees assez enorme pour pouvoir surpasser un CNN. Entraines sur des petits ensembles de donnees, ils sont en sous performance par rapport aux CNN.
+
 ## Image
 
 ![transformer](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png)
